@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns:m="sap.m"
+    xmlns="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <m:Popover showHeader="false" contentWidth="870px" contentHeight="430px" placement="Right">
+        <m:NavContainer id="navCon">
+            <m:Page id="master" class="sapUiResponsivePadding--header" title="Dados de Impostos">
+                <Table rows="{/Impostos}" selectionMode="None" visibleRowCount="10" >
+                   <!-- <extension>
+                        <m:OverflowToolbar>
+                            <m:Title id="title" text="Products"/>
+                        </m:OverflowToolbar>
+                    </extension>-->
+                    <columns>
+                        <Column width="9rem" hAlign="Center">
+                            <m:Label text="Tipo Imposto" />
+                            <template>
+                                <m:Text text="{Taxtyp}"  />
+                            </template>
+                        </Column>
+                        <Column width="9rem" hAlign="Center">
+                            <m:Label text="Montante Básico" />
+                            <template>
+                                <m:Text text="{Base}"  />
+                            </template>
+                        </Column>
+                        <Column width="9rem" hAlign="Center">
+                            <m:Label text="Taxa" />
+                            <template>
+                                <m:Text text="{Rate}"  />
+                            </template>
+                        </Column>
+                        <Column width="9rem" hAlign="Center">
+                            <m:Label text="Valor" />
+                            <template>
+                                <m:Text text="{Taxval}"  />
+                            </template>
+                        </Column>
+                      
+                      <Column width="9rem" hAlign="Center">
+                            <m:Label text="Base Excluída" />
+                            <template>
+                                <m:Text text="{Excbas}"  />
+                            </template>
+                        </Column>
+                        <Column width="9rem" hAlign="Center">
+                            <m:Label text="Outra Base" />
+                            <template>
+                                <m:Text text="{Othbas}"  />
+                            </template>
+                        </Column>
+                        
+                        
+                        
+                    </columns>
+                </Table>
+            </m:Page>
+
+        </m:NavContainer>
+    </m:Popover>
+</core:FragmentDefinition>

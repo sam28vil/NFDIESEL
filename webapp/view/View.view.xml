@@ -1,0 +1,255 @@
+<mvc:View controllerName="mrs.com.br.zmmdieselnfretorno.controller.View" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:table="sap.ui.table"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants">
+    <Page title="Retorno de Remessa/Perda e Ganho" class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer" showNavButton="false">
+        <headerContent>
+
+        </headerContent>
+        <subHeader>
+
+        </subHeader>
+        <content>
+            <fb:FilterBar reset="onReset" search="onSearch" showRestoreButton="false" showClearButton="false">
+                <fb:filterItems>
+                    <fb:FilterItem name="A" label="Data Início Encerrante">
+                        <fb:control>
+                            <DatePicker id="dataInicio" placeholder="" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" />
+                        </fb:control>
+                    </fb:FilterItem>
+                    <fb:FilterItem name="B" label="Data Fim Encerrante">
+                        <fb:control>
+                            <DatePicker id="dataFim" placeholder="" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" />
+                        </fb:control>
+                    </fb:FilterItem>
+                   <fb:FilterItem name="C" label="Posto">
+                        <fb:control>
+                            <ComboBox id="cboPosto"  items="{ path: '/results', sorter: { path: 'Posto' }}">
+                                            <core:Item key="{Posto}" text="{Posto}"  />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterItem>
+                    <fb:FilterItem name="E" label="Volume Perda (Litros)">
+                        <fb:control>
+                            <Input id="iptVolume"  class="sapUiSmallMarginBottom" placeholder="" />
+                        </fb:control>
+                    </fb:FilterItem>
+
+                    <fb:FilterItem name="D" label="Volume Ganho (Litros)">
+                        <fb:control>
+                            <Input id="iptVolumeGanho"  class="sapUiSmallMarginBottom" placeholder="" />
+                        </fb:control>
+                    </fb:FilterItem>
+                    <!--<fb:FilterItem name="D" label="Perda">
+                        <fb:control>
+                            <CheckBox id="chkPerda" />
+                        </fb:control>
+                    </fb:FilterItem>-->
+                </fb:filterItems>
+
+            </fb:FilterBar>
+            		<ObjectHeader
+		id="oh1"
+        
+		responsive="true"
+		fullScreenOptimized="false"
+		title="Dados do Documento"
+		titleActive="false"
+		showTitleSelector="false"
+		backgroundDesign="Translucent"
+        visible="{ViewModel>/titleAndButton}">
+		<ObjectAttribute id="parid" title="Fornecedor" visible="{ViewModel>/temNF}" />
+		<ObjectAttribute id="dataDocumento" title="Data Documento" visible="{ViewModel>/semNF}"/>
+		<ObjectAttribute id="dataLancamento" title="Data Lançamento" visible="{ViewModel>/semNF}"/>
+		<ObjectAttribute id="empresa" title="Empresa" visible="{ViewModel>/semNF}"/>
+		<ObjectAttribute id="branch" title="Local de Negócios" visible="{ViewModel>/temNF}"/>
+		<ObjectAttribute id="waerk" title="Moeda" visible="{ViewModel>/temNF}"/>
+        <ObjectAttribute id="nftype" title="Tipo Documento" visible="{ViewModel>/semNF}"/>
+        <ObjectAttribute id="direct" title="Direção" visible="{ViewModel>/temNF}"/>
+        <ObjectAttribute id="model" title="Modelo" visible="{ViewModel>/temNF}"/>
+        <ObjectAttribute id="form" title="Form" visible="{ViewModel>/temNF}"/>
+        <ObjectAttribute id="modelo" title="Modelo" visible="{ViewModel>/temNF}"/>
+        <ObjectAttribute id="referencia" title="Referência" visible="{ViewModel>/semNF}"/>
+		
+		<headerContainer>
+		</headerContainer>
+	</ObjectHeader>
+    			<table:Table id="tableItem"
+				rows="{/results}"
+				selectionMode="None"
+				visibleRowCount="12"
+				paste="onPaste"
+				ariaLabelledBy="title"
+                visible="{ViewModel>/temNF}">
+				<table:extension>
+					<OverflowToolbar style="Clear">
+						<Title id="title" text="Dados dos Itens"/>
+					</OverflowToolbar>
+				</table:extension>
+				<table:columns>
+                <table:Column width="90px" hAlign="Center">
+						<Label text="" />
+						<table:template>
+							<Button text="Impostos" press="onPressImpostos" />
+						</table:template>
+					</table:Column>
+					<table:Column width="80px" hAlign="Center">
+						<Label text="Item" />
+						<table:template>
+							<Text text="{Itmnum}" />
+						</table:template>
+					</table:Column>
+					<table:Column width="80px" hAlign="Center">
+						<Label text="Tipo Item" />
+						<table:template>
+							<Text text="{Itmtyp}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="160px" hAlign="Center">
+						<Label text="Material" />
+						<table:template>
+							<Text text="{Matnr}" />
+						</table:template>
+					</table:Column>
+					<table:Column width="18rem" hAlign="Center">
+						<Label text="Denominação" />
+						<table:template>
+							<Text text="{Maktx}" />
+						</table:template>
+					</table:Column>
+					<table:Column width="7rem" hAlign="Center">
+						<Label text="Quantidade" />
+						<table:template>
+							<Text text="{Menge}" />
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" hAlign="Center">
+						<Label text="U.M." />
+						<table:template>
+							<Text text="{Meins}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Preço Líquido" />
+						<table:template>
+							<Text text="{Netpr}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Valor Líquido" />
+						<table:template>
+							<Text text="{Netwr}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="9rem" hAlign="Center">
+						<Label text="CFOP" />
+						<table:template>
+							<Text text="{Cfop10}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="7rem" hAlign="Center">
+						<Label text="Referência" />
+						<table:template>
+							<Text text="{Docref}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="9rem" hAlign="Center">
+						<Label text="Cód. Controle" />
+						<table:template>
+							<Text text="{Nbm}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Dir. Fiscal ICMS" />
+						<table:template>
+							<Text text="{Taxlw1}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Dir. Fiscal IPI" />
+						<table:template>
+							<Text text="{Taxlw2}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Dir. Fiscal COF" />
+						<table:template>
+							<Text text="{Taxlw4}" />
+						</table:template>
+					</table:Column>
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Dir. Fiscal PIS" />
+						<table:template>
+							<Text text="{Taxlw5}" />
+						</table:template>
+					</table:Column>
+				</table:columns>
+			</table:Table>
+
+
+
+            <table:Table id="tableItemSemNf"
+				rows="{/results}"
+				selectionMode="None"
+				visibleRowCount="12"
+				paste="onPaste"
+				ariaLabelledBy="title"
+                visible="{ViewModel>/semNFTable}">
+				<table:extension>
+					<OverflowToolbar style="Clear">
+						<Title id="titleSemNF" text="Dados dos Itens"/>
+					</OverflowToolbar>
+				</table:extension>
+				<table:columns>
+                 <table:Column width="8rem" hAlign="Center">
+						<Label text="Item" />
+						<table:template>
+							<Text text="{ItemnoAcc}" />
+						</table:template>
+					</table:Column>
+
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Conta" />
+						<table:template>
+							<Text text="{GlAccount}" />
+						</table:template>
+					</table:Column>
+
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Centro de Custo" />
+						<table:template>
+							<Text text="{Costcenter}" />
+						</table:template>
+					</table:Column>
+
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Moeda" />
+						<table:template>
+							<Text text="{Currency}" />
+						</table:template>
+					</table:Column>
+
+                    <table:Column width="8rem" hAlign="Center">
+						<Label text="Valor" />
+						<table:template>
+							<Text text="{AmtDoccur}" />
+						</table:template>
+					</table:Column>
+					
+				</table:columns>
+			</table:Table>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button  text="Processar" type="Accept" press="onPressGerarNota" visible="{ViewModel>/titleAndButton}"/>
+                
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
